@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\salon master\PycharmProjectsExprom-L\venv"
+VIRTUAL_ENV="C:\Users\salon master\Exprom-L\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
