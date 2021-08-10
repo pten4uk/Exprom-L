@@ -1,0 +1,10 @@
+{% extends 'catalog/index.html' %}
+
+{% block title %}Каталог{% endblock title %}
+
+{% block content %}
+{% for model in models %}
+<h>{{ model.category }}</h> <h>{{ model.number }}</h> |<h>{{ model.small_description }}</h> |<h>{{ model.price }}</h> |
+<hr>
+{% endfor %}
+{% endblock content %}
