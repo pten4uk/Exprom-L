@@ -12,16 +12,14 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 
-class Pouf(models.Model):
-    number = models.PositiveSmallIntegerField(primary_key=True)
+class Product(models.Model):
+    number = models.PositiveSmallIntegerField('Номер', primary_key=True)
     category = models.ForeignKey(Category, null=True, default=None, on_delete=models.SET_DEFAULT)
     small_description = models.CharField(max_length=250, blank=True)
-    # photo = models.ImageField()
     description = models.TextField(blank=True)
     width = models.PositiveSmallIntegerField()
     height = models.PositiveSmallIntegerField()
     depth = models.PositiveSmallIntegerField()
-    weight = models.PositiveSmallIntegerField()
     price = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):

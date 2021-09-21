@@ -1,5 +1,12 @@
 from django.contrib import admin
-from .models import Category, Pouf
+from .models import Category, Product
 
-admin.site.register(Category)
-admin.site.register(Pouf)
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Product)
+class PoufAdmin(admin.ModelAdmin):
+    pass
