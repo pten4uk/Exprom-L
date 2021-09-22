@@ -14,13 +14,13 @@ class Category(models.Model):
 
 class Product(models.Model):
     number = models.PositiveSmallIntegerField('Номер', primary_key=True)
-    category = models.ForeignKey(Category, null=True, default=None, on_delete=models.SET_DEFAULT)
-    small_description = models.CharField(max_length=250, blank=True)
-    description = models.TextField(blank=True)
-    width = models.PositiveSmallIntegerField()
-    height = models.PositiveSmallIntegerField()
-    depth = models.PositiveSmallIntegerField()
-    price = models.PositiveSmallIntegerField(default=0)
+    category = models.ForeignKey(Category, verbose_name='Категория', null=True, default=None, on_delete=models.SET_DEFAULT)
+    small_description = models.CharField('Краткое описание', max_length=250, blank=True)
+    description = models.TextField('Описание', blank=True)
+    width = models.PositiveSmallIntegerField('Ширина')
+    height = models.PositiveSmallIntegerField('Высота')
+    depth = models.PositiveSmallIntegerField('Глубина')
+    price = models.PositiveSmallIntegerField('Цена', default=0)
 
     def __str__(self):
         return f'{self.category} {self.number}'
