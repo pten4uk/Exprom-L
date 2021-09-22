@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import PoufList, PoufDetail
+from .views import *
 
 
 urlpatterns = [
-    path('', PoufList.as_view()),
-    path('<pk>', PoufDetail.as_view()),
+    path('', ProductList.as_view(), name='catalog'),
+    path('<pk>', ProductDetail.as_view(), name='product'),
 ]

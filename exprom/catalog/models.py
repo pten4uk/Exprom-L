@@ -14,7 +14,18 @@ class Category(models.Model):
 
 class Product(models.Model):
     number = models.PositiveSmallIntegerField('Номер', primary_key=True)
-    category = models.ForeignKey(Category, verbose_name='Категория', null=True, default=None, on_delete=models.SET_DEFAULT)
+    slug = models.SlugField(
+        'Имя ссылки',
+        help_text='Введите название товара на английском языке, заменяя пробелы дефисами',
+        max_length=30,
+        unique=True)
+    category = models.ForeignKey(
+        Category,
+        verbose_name='Категория',
+        null=True,
+        default=None,
+        on_delete=models.SET_DEFAULT
+    )
     small_description = models.CharField('Краткое описание', max_length=250, blank=True)
     description = models.TextField('Описание', blank=True)
     width = models.PositiveSmallIntegerField('Ширина')

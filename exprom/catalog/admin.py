@@ -8,5 +8,12 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(Product)
-class PoufAdmin(admin.ModelAdmin):
-    pass
+class ProductAdmin(admin.ModelAdmin):
+    fields = ('number',
+              'slug',
+              'category',
+              'small_description',
+              'description',
+              ('width', 'height', 'depth'),
+              'price'
+              )
