@@ -1,5 +1,12 @@
 from django.contrib import admin
-from .models import Category, Product
+from .models import *
+
+
+class PhotoInline(admin.TabularInline):
+    model = Photo
+    verbose_name = 'Фото'
+    verbose_name_plural = 'Фото'
+    extra = 0
 
 
 @admin.register(Category)
@@ -9,6 +16,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    inlines = [PhotoInline]
     fields = ('number',
               'slug',
               'category',
@@ -17,3 +25,4 @@ class ProductAdmin(admin.ModelAdmin):
               ('width', 'height', 'depth'),
               'price'
               )
+    list_filter = ('category',)
