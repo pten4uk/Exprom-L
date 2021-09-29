@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.db import models
 
 from .utils import photo_directory_path
