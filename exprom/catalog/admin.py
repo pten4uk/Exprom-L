@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import *
 
+admin.site.site_title = 'Администрирование Экспром-Л'
+admin.site.site_header = 'Администрирование Экспром-Л'
+
 
 class PhotoInline(admin.TabularInline):
     model = Photo
@@ -17,17 +20,24 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     inlines = [PhotoInline]
-    list_filter = ('category',)
-    fieldsets = (
-        (None, {'fields': ('number',)}),
-        (None, {'fields': ('slug',)}),
-        (None, {'fields': ('category',)}),
-        (None, {'fields': ('small_description',)}),
-        (None, {'fields': ('description',)}),
-        (None, {'fields': ('width', 'height', 'depth')}),
-        (None, {'fields': ('price',)}),
+    list_display = ('get_str_title', 'small_description', 'price')
+    fields = ('number',
+              'slug',
+              'category',
+              'photos',
+              'small_description',
+              'description',
+              ('width', 'height', 'depth'),
+              'price'
               )
+    list_filter = ('category',)
+    change_form_template = 'admin/change_form.html'
+
+    def get_str_title(self, obj):
+        return f'{obj.category} {obj.number}'
+    get_str_title.short_description = 'Название'
+
 
     def save_model(self, request, obj, form, change):
-        print(obj, form, change)
+        print(obj.photos.get(pk=1))
         return super().save_model(request, obj, form, change)

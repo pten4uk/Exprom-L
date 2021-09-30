@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.db import models
 
 from .utils import photo_directory_path
@@ -30,6 +31,7 @@ class Product(models.Model):
         default=None,
         on_delete=models.SET_DEFAULT,
     )
+    photos = models.OneToOneField('Photo', on_delete=models.CASCADE, null=True, related_name='photos')
     small_description = models.CharField('Краткое описание', max_length=250, blank=True)
     description = models.TextField('Описание', blank=True)
     width = models.PositiveSmallIntegerField('Ширина')
@@ -47,7 +49,7 @@ class Product(models.Model):
 
 
 class Photo(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.OneToOneField(Product, on_delete=models.CASCADE)
 
     general_photo = models.ImageField('Главная фотография', null=True, blank=True, upload_to=photo_directory_path)
     second_photo = models.ImageField('Дополнительное фото 1', null=True, blank=True, upload_to=photo_directory_path)
