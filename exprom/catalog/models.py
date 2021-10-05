@@ -1,7 +1,11 @@
+import os
+
 from django.contrib import admin
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
-from .utils import photo_directory_path
+from .utils import upload_function
 
 
 class Category(models.Model):
@@ -31,7 +35,7 @@ class Product(models.Model):
         default=None,
         on_delete=models.SET_DEFAULT,
     )
-    photos = models.OneToOneField('Photo', on_delete=models.CASCADE, null=True, related_name='photos')
+    photo = models.ImageField('Главное фото', upload_to=upload_function, null=True, blank=True)
     small_description = models.CharField('Краткое описание', max_length=250, blank=True)
     description = models.TextField('Описание', blank=True)
     width = models.PositiveSmallIntegerField('Ширина')
@@ -49,11 +53,14 @@ class Product(models.Model):
 
 
 class Photo(models.Model):
-    product = models.OneToOneField(Product, on_delete=models.CASCADE)
-
-    general_photo = models.ImageField('Главная фотография', null=True, blank=True, upload_to=photo_directory_path)
-    second_photo = models.ImageField('Дополнительное фото 1', null=True, blank=True, upload_to=photo_directory_path)
-    third_photo = models.ImageField('Дополнительное фото 2', null=True, blank=True, upload_to=photo_directory_path)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+    photo = models.ImageField('Изображение', upload_to=upload_function)
 
     def __str__(self):
-        return f'{self.product.category} {self.product.number}'
+        return f'Изображение {self.pk} для {self.content_object}'
+
+    class Meta:
+        verbose_name = 'Фото'
+        verbose_name_plural = 'Фото'
