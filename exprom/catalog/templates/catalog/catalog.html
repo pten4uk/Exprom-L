@@ -3,10 +3,10 @@
 {% block title %}Каталог{% endblock title %}
 
 {% block content %}
-{% if models %}
 {% for model in models %}
-<h>{{ model.photo_set. }}</h> <h>{{ model.category }}</h> <h>{{ model.number }}</h> |<h>{{ model.description|safe }}</h> |<h>{{ model.price }}</h> |
+
+<h>{{ model.photo_set. }}</h> <h>{{ model.category }}</h> <h>{{ model.number }}</h> |<h>{{ model.description }}</h> |<h>{{ model.price }}</h> |
 <hr>
+{% empty %}
 {% endfor %}
-{% endif %}
 {% endblock content %}

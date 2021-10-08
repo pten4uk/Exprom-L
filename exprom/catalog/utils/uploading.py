@@ -1,14 +1,17 @@
 import os
 
+from config.settings import MEDIA_ROOT
+
 
 def upload_function(instance, filename):
     if hasattr(instance, 'content_object'):
         instance = instance.content_object
 
-    path = f'media/products/{instance}/{filename}'
+    path = f'products/{instance}/{filename}'
+    full_path = os.path.join(MEDIA_ROOT, path)
 
-    if not os.path.exists(path):
+    if not os.path.exists(full_path):
         return path
     else:
-        os.remove(path)
+        os.remove(full_path)
         return path

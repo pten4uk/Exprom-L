@@ -20,7 +20,7 @@ def delete_related_photos(sender, instance, created, **kwargs):
 
 
 @receiver(post_save, sender=Product)
-def delete_relater_photos(sender, instance, created, **kwargs):
+def delete_related_photos(sender, instance, created, **kwargs):
     if created:
         photo = instance.photo or None
         related_photos = Photo.objects.filter(object_id=instance.pk)
